@@ -4,7 +4,9 @@
  */
 
 import { lazy, Suspense } from 'react';
-import { HashRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { HashRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { AnimatePresence, motion } from 'framer-motion';
+import { pageVariants, pageTransition } from '../animations/pageTransitions';
 const Home = lazy(() => import('../pages/Home'));
 import { Toaster } from 'sonner';
 import { useAuthStore } from '../store/authStore';
@@ -71,49 +73,69 @@ function Protected({ role, children }) {
     );
 }
 
-// ── Router ────────────────────────────────────────────────────────────────────
-export default function AppRouter() {
+function AnimatedRoutes() {
+    const location = useLocation();
     return (
-        <HashRouter>
+        <>
             <Toaster
                 position="top-right"
                 richColors
                 toastOptions={{ style: { fontFamily: 'Plus Jakarta Sans, sans-serif' } }}
             />
-            <Suspense fallback={<PageLoader />}>
-                <Routes>
+            <AnimatePresence mode="wait">
+                <Suspense fallback={<PageLoader />}>
+                    <motion.div
+                        key={location.pathname}
+                        variants={pageVariants}
+                        initial="initial"
+                        animate="in"
+                        exit="out"
+                        transition={pageTransition}
+                        className="min-h-screen"
+                    >
+                        <Routes location={location}>
+                            {/* Home page */}
+                            <Route path="/" element={<GuestOnly><Home /></GuestOnly>} />
+                            {/* Smart redirect for legacy or direct links */}
+                            <Route path="/redirect" element={<RootRedirect />} />
 
-                    {/* Home page */}
-                    <Route path="/" element={<GuestOnly><Home /></GuestOnly>} />
-                    {/* Smart redirect for legacy or direct links */}
-                    <Route path="/redirect" element={<RootRedirect />} />
+                            {/* Public */}
+                            <Route path="/login" element={<GuestOnly><Login /></GuestOnly>} />
+                            <Route path="/register" element={<GuestOnly><RegisterPage /></GuestOnly>} />
+                            <Route path="/contact" element={<Contact />} />
+                            <Route path="/policy" element={<Policy />} />
+                            <Route path="/unauthorized" element={<Unauthorized />} />
 
-                    {/* Public */}
-                    <Route path="/login" element={<GuestOnly><Login /></GuestOnly>} />
-                    <Route path="/register" element={<GuestOnly><RegisterPage /></GuestOnly>} />
-                    <Route path="/contact" element={<Contact />} />
-                    <Route path="/policy" element={<Policy />} />
-                    <Route path="/unauthorized" element={<Unauthorized />} />
+                            {/* ── User routes ─────────────────────────────────── */}
+                            <Route path="/user/dashboard" element={<Protected role="user"><UserDashboard /></Protected>} />
+                            <Route path="/user/certifications" element={<Protected role="user"><MyCertifications /></Protected>} />
+                            <Route path="/user/certifications/add" element={<Protected role="user"><AddCertification /></Protected>} />
+                            <Route path="/user/certifications/edit/:id" element={<Protected role="user"><EditCertification /></Protected>} />
+                            <Route path="/user/certifications/:id" element={<Protected role="user"><CertificateDetail /></Protected>} />
+                            <Route path="/user/profile" element={<Protected role="user"><Profile /></Protected>} />
 
-                    {/* ── User routes ─────────────────────────────────── */}
-                    <Route path="/user/dashboard" element={<Protected role="user"><UserDashboard /></Protected>} />
-                    <Route path="/user/certifications" element={<Protected role="user"><MyCertifications /></Protected>} />
-                    <Route path="/user/certifications/add" element={<Protected role="user"><AddCertification /></Protected>} />
-                    <Route path="/user/certifications/edit/:id" element={<Protected role="user"><EditCertification /></Protected>} />
-                    <Route path="/user/certifications/:id" element={<Protected role="user"><CertificateDetail /></Protected>} />
-                    <Route path="/user/profile" element={<Protected role="user"><Profile /></Protected>} />
+                            {/* ── Admin routes ────────────────────────────────── */}
+                            <Route path="/admin/dashboard" element={<Protected role="admin"><AdminDashboard /></Protected>} />
+                            <Route path="/admin/certifications" element={<Protected role="admin"><AllCertifications /></Protected>} />
+                            <Route path="/admin/users" element={<Protected role="admin"><UserManagement /></Protected>} />
+                            <Route path="/admin/users/:userId/certifications" element={<Protected role="admin"><UserCertDetail /></Protected>} />
+                            <Route path="/admin/reports" element={<Protected role="admin"><ExpiryReports /></Protected>} />
 
-                    {/* ── Admin routes ────────────────────────────────── */}
-                    <Route path="/admin/dashboard" element={<Protected role="admin"><AdminDashboard /></Protected>} />
-                    <Route path="/admin/certifications" element={<Protected role="admin"><AllCertifications /></Protected>} />
-                    <Route path="/admin/users" element={<Protected role="admin"><UserManagement /></Protected>} />
-                    <Route path="/admin/users/:userId/certifications" element={<Protected role="admin"><UserCertDetail /></Protected>} />
-                    <Route path="/admin/reports" element={<Protected role="admin"><ExpiryReports /></Protected>} />
+                            {/* 404 */}
+                            <Route path="*" element={<NotFound />} />
+                        </Routes>
+                    </motion.div>
+                </Suspense>
+            </AnimatePresence>
+        </>
+    );
+}
 
-                    {/* 404 */}
-                    <Route path="*" element={<NotFound />} />
-                </Routes>
-            </Suspense>
+// ── Router ────────────────────────────────────────────────────────────────────
+export default function AppRouter() {
+    return (
+        <HashRouter>
+            <AnimatedRoutes />
         </HashRouter>
     );
 }

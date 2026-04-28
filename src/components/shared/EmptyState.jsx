@@ -1,11 +1,8 @@
-/**
- * EmptyState.jsx — FSAD-PS34
- * Centered empty state with icon, title, message, optional action button.
- */
-
 import { motion } from 'framer-motion';
-import { FileX } from 'lucide-react';
+import { ArrowRight, FileSearch, Sparkles } from 'lucide-react';
 import { fadeInScale } from '../../animations/variants';
+import Button from '../ui/Button';
+import Card from '../ui/Card';
 
 export default function EmptyState({
     title = 'Nothing here yet',
@@ -14,27 +11,26 @@ export default function EmptyState({
     onAction,
 }) {
     return (
-        <motion.div
-            variants={fadeInScale}
-            initial="hidden"
-            animate="visible"
-            className="flex flex-col items-center justify-center py-20 px-6 text-center"
-        >
-            <div className="mb-5 flex items-center justify-center w-16 h-16 rounded-full bg-indigo-50 dark:bg-indigo-900/30">
-                <FileX className="w-8 h-8 text-indigo-400 dark:text-indigo-300" />
-            </div>
+        <motion.div variants={fadeInScale} initial="hidden" animate="visible">
+            <Card className="px-6 py-16 text-center">
+                <div className="mx-auto mb-6 flex h-24 w-24 items-center justify-center rounded-full bg-[radial-gradient(circle_at_top,#DBEAFE,#EFF6FF)]">
+                    <div className="relative flex h-16 w-16 items-center justify-center rounded-full bg-white shadow-sm">
+                        <FileSearch className="h-8 w-8 text-[#2563EB]" />
+                        <Sparkles className="absolute -right-1 -top-1 h-4 w-4 text-[#60A5FA]" />
+                    </div>
+                </div>
 
-            <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-2">{title}</h3>
-            <p className="text-sm text-gray-500 dark:text-gray-400 max-w-xs leading-relaxed">{message}</p>
+                <p className="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#2563EB]">// Empty state</p>
+                <h3 className="mb-2 text-xl font-bold text-slate-900">{title}</h3>
+                <p className="mx-auto max-w-md text-sm leading-7 text-slate-500">{message}</p>
 
-            {actionLabel && onAction && (
-                <button
-                    onClick={onAction}
-                    className="mt-6 inline-flex items-center gap-2 px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 text-white text-sm font-medium rounded-xl transition-colors shadow-sm"
-                >
-                    {actionLabel}
-                </button>
-            )}
+                {actionLabel && onAction && (
+                    <Button onClick={onAction} className="mt-6">
+                        {actionLabel}
+                        <ArrowRight className="h-4 w-4" />
+                    </Button>
+                )}
+            </Card>
         </motion.div>
     );
 }

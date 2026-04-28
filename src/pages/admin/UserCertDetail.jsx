@@ -73,6 +73,12 @@ export default function UserCertDetail() {
     const handleSaveEdit = async (data) => {
         if (!editing) return;
 
+        // Optimistic UI update
+        const optimisticUpdated = { ...editing, ...data };
+        setCerts((previous) => previous.map((certificate) =>
+            certificate.id === editing.id ? optimisticUpdated : certificate
+        ));
+
         setSaving(true);
 
         try {
@@ -87,6 +93,10 @@ export default function UserCertDetail() {
             toast.success('Certificate updated!');
             setEditing(null);
         } catch (error) {
+            // Revert on failure
+            setCerts((previous) => previous.map((certificate) =>
+                certificate.id === editing.id ? editing : certificate
+            ));
             toast.error(error.message);
         } finally {
             setSaving(false);

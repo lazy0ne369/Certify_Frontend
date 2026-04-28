@@ -1,25 +1,21 @@
-/**
- * Button.jsx — FSAD-PS34
- * Reusable button with variants, loading state, dark mode.
- */
-
+import { forwardRef } from 'react';
 import { Loader2 } from 'lucide-react';
 
 const VARIANTS = {
-    primary: 'bg-[var(--accent)] hover:bg-[var(--accent-strong)] active:bg-[var(--accent-strong)] text-white shadow-[0_18px_40px_rgba(23,107,104,0.18)]',
-    secondary: 'bg-[var(--surface-muted)] hover:bg-[#e2ddd3] dark:bg-[#1d2328] dark:hover:bg-[#232b31] text-[var(--text)]',
-    danger: 'bg-red-600 hover:bg-red-700 active:bg-red-800 text-white shadow-sm',
-    ghost: 'hover:bg-white/70 dark:hover:bg-white/6 text-[var(--muted)] dark:text-[var(--muted)]',
-    outline: 'border border-[var(--line-strong)] bg-white/52 dark:bg-white/[0.03] hover:bg-white/84 dark:hover:bg-white/[0.06] text-[var(--text)]',
+    primary: 'bg-[#2563EB] text-white hover:bg-[#1D4ED8] hover:scale-[1.02] hover:shadow-[0_8px_20px_rgba(37,99,235,0.35)] active:scale-[0.98] border-none',
+    secondary: 'bg-transparent text-[#2563EB] underline underline-offset-4 hover:text-[#1D4ED8]',
+    danger: 'bg-[#DC2626] text-white shadow-md hover:bg-[#B91C1C] active:bg-[#991B1B]',
+    ghost: 'bg-transparent text-[#6B7280] hover:bg-slate-100 hover:text-[#111827]',
+    outline: 'border border-slate-200 bg-white text-[#111827] hover:bg-slate-50',
 };
 
 const SIZES = {
     sm: 'h-9 px-3.5 text-xs',
     md: 'h-11 px-4.5 text-sm',
-    lg: 'h-12 px-6 text-sm',
+    lg: 'py-[11px] px-[28px] text-[14px]',
 };
 
-export default function Button({
+const Button = forwardRef(function Button({
     children,
     variant = 'primary',
     size = 'md',
@@ -28,16 +24,17 @@ export default function Button({
     className = '',
     disabled,
     ...props
-}) {
+}, ref) {
     const isDisabled = disabled || loading;
 
     return (
         <button
+            ref={ref}
             disabled={isDisabled}
             className={[
-                'inline-flex items-center justify-center gap-2 rounded-full font-semibold transition-all duration-200',
-                'focus:outline-none focus:ring-2 focus:ring-[var(--accent)] focus:ring-offset-2 focus:ring-offset-transparent',
-                'disabled:opacity-60 disabled:cursor-not-allowed',
+                'inline-flex items-center justify-center gap-[8px] rounded-full font-[700] transition-all duration-200 ease',
+                'focus:outline-none focus:ring-2 focus:ring-[#2563EB] focus:ring-offset-2 focus:ring-offset-transparent',
+                'disabled:cursor-not-allowed disabled:opacity-70 disabled:hover:scale-100 disabled:hover:shadow-none',
                 VARIANTS[variant] ?? VARIANTS.primary,
                 SIZES[size] ?? SIZES.md,
                 fullWidth ? 'w-full' : '',
@@ -45,8 +42,10 @@ export default function Button({
             ].join(' ')}
             {...props}
         >
-            {loading && <Loader2 className="w-4 h-4 animate-spin" />}
+            {loading && <Loader2 className="h-[16px] w-[16px] animate-spin" />}
             {children}
         </button>
     );
-}
+});
+
+export default Button;

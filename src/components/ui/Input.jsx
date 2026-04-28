@@ -15,45 +15,51 @@ const Input = forwardRef(function Input(
     const inputType = isPassword ? (show ? 'text' : 'password') : type;
 
     return (
-        <div className="flex flex-col gap-1.5">
+        <div className="relative w-full mb-[28px] group">
             {label && (
-                <label className="text-sm font-medium text-[var(--text)]">
+                <label className="mb-1.5 block text-sm font-medium text-[var(--text)]">
                     {label}
                 </label>
             )}
-            <div className="relative">
+            
+            <div className="relative w-full">
                 {Icon && (
-                    <Icon className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--muted)]" />
+                    <Icon className="pointer-events-none absolute left-0 top-1/2 h-[16px] w-[16px] -translate-y-1/2 text-[#94A3B8] transition-colors duration-200 group-focus-within:text-[#2563EB]" />
                 )}
+                
                 <input
                     ref={ref}
                     type={inputType}
                     className={[
-                        'w-full h-12 rounded-2xl border bg-white/74 text-sm transition-all duration-200 dark:bg-white/[0.03]',
-                        'text-[var(--text)] placeholder:text-[var(--muted)]',
-                        'focus:outline-none focus:ring-2 focus:ring-[var(--accent)] focus:border-[var(--accent)]',
-                        Icon ? 'pl-11' : 'pl-4',
-                        isPassword ? 'pr-11' : 'pr-4',
-                        error
-                            ? 'border-red-400 dark:border-red-500'
-                            : 'border-[var(--line-strong)]',
+                        'w-full bg-transparent border-0 border-b-2 transition-colors duration-200 ease',
+                        'py-[8px] pl-[28px] pr-[32px]',
+                        'text-[14px] text-[#111827]',
+                        'placeholder:text-[#94A3B8] placeholder:text-[13px]',
+                        'focus:outline-none focus:border-[#2563EB]',
+                        error ? 'border-red-400 dark:border-red-500' : 'border-[#CBD5E1]',
                         className,
                     ].join(' ')}
                     {...props}
                 />
+
                 {isPassword && (
                     <button
                         type="button"
                         tabIndex={-1}
                         onClick={() => setShow((v) => !v)}
-                        className="absolute right-4 top-1/2 -translate-y-1/2 text-[var(--muted)] hover:text-[var(--text)]"
+                        className="absolute right-0 top-1/2 -translate-y-1/2 cursor-pointer text-[#94A3B8]"
                     >
-                        {show ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                        {show ? <EyeOff className="h-[16px] w-[16px]" /> : <Eye className="h-[16px] w-[16px]" />}
                     </button>
                 )}
             </div>
+
+            <div className="block w-full h-[1px] bg-[#E2E8F0] mb-[4px] mt-2" />
+
             {error && (
-                <p className="text-xs text-red-500 dark:text-red-400">{error}</p>
+                <p className="absolute -bottom-[20px] left-0 text-xs text-red-500 dark:text-red-400">
+                    {error}
+                </p>
             )}
         </div>
     );

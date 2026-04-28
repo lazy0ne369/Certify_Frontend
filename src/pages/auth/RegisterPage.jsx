@@ -3,25 +3,27 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { motion } from 'framer-motion';
 import { toast } from 'sonner';
-import { Briefcase, Building2, Lock, Mail, ShieldCheck, User } from 'lucide-react';
+import { ArrowRight, Briefcase, Building2, Lock, Mail, ShieldCheck, User, UserCircle2 } from 'lucide-react';
 import { registerUser } from '../../services/authService';
 import { useAuthStore } from '../../store/authStore';
-import PublicLayout from '../../components/layout/PublicLayout';
-import AuthShowcasePanel from '../../components/auth/AuthShowcasePanel';
+import AuthVisualPanel from '../../components/auth/AuthVisualPanel';
 import Input from '../../components/ui/Input';
 import Button from '../../components/ui/Button';
 
-const DEPARTMENTS = ['Engineering', 'Analytics', 'Infrastructure', 'Management'];
-
-const schema = z.object({
-    name: z.string().min(2, 'Name must be at least 2 characters'),
-    email: z.string().email('Enter a valid email address'),
-    password: z.string().min(6, 'Password must be at least 6 characters'),
-    designation: z.string().min(2, 'Designation is required'),
-    department: z.string().min(1, 'Department is required'),
-});
+const schema = z
+    .object({
+        name: z.string().min(2, 'Name must be at least 2 characters'),
+        email: z.string().email('Enter a valid email address'),
+        password: z.string().min(6, 'Password must be at least 6 characters'),
+        confirmPassword: z.string().min(6, 'Confirm your password'),
+        designation: z.string().min(2, 'Designation is required'),
+        department: z.string().min(1, 'Department is required'),
+    })
+    .refine((data) => data.password === data.confirmPassword, {
+        path: ['confirmPassword'],
+        message: 'Passwords must match',
+    });
 
 export default function RegisterPage() {
     const navigate = useNavigate();
@@ -34,11 +36,16 @@ export default function RegisterPage() {
         formState: { errors },
     } = useForm({
         resolver: zodResolver(schema),
-        defaultValues: { department: '' },
+        defaultValues: {
+            department: '',
+            confirmPassword: '',
+        },
     });
 
-    const onSubmit = async (formData) => {
+    const onSubmit = async (values) => {
         setLoading(true);
+        const { confirmPassword, ...formData } = values;
+        void confirmPassword;
 
         try {
             const result = await registerUser({ ...formData, avatar: '' });
@@ -53,136 +60,95 @@ export default function RegisterPage() {
     };
 
     return (
-        <PublicLayout>
-            <section className="flex min-h-[calc(100vh-190px)] items-center py-8 sm:py-10">
-                <motion.div
-                    initial={{ opacity: 0, y: 18 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.35 }}
-                    className="public-surface-strong w-full overflow-hidden rounded-[34px] p-3 shadow-[0_30px_80px_rgba(17,24,28,0.12)]"
-                >
-                    <div className="grid gap-3 lg:grid-cols-[0.94fr_1.06fr]">
-                        <AuthShowcasePanel
-                            eyebrow="New workspace"
-                            title="Create a profile that feels structured from day one."
-                            copy="The registration flow now matches the same visual discipline as the product itself, with stronger grouping and better spatial rhythm."
-                            metricLabel="Workflow focus"
-                            metricValue="4 steps"
-                            metricHint="Profile, department, credential ownership, then dashboard."
-                            highlights={[
-                                'Departments tie into admin compliance views',
-                                'User profiles stay lightweight and clear',
-                                'A cleaner start leads to cleaner data',
-                            ]}
-                        />
+        <div className="min-h-screen bg-white">
+            <div className="flex min-h-screen w-full items-center justify-center">
+                <section className="w-full min-h-screen overflow-hidden bg-white">
+                    <div className="grid min-h-screen grid-cols-1 lg:grid-cols-[42vw_58vw]">
+                        <AuthVisualPanel mode="REGISTER" />
 
-                        <div className="rounded-[30px] bg-[linear-gradient(180deg,rgba(255,255,255,0.72),rgba(255,255,255,0.92))] px-5 py-6 dark:bg-[linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.04))] sm:px-8 sm:py-8">
-                            <div className="mx-auto max-w-[560px]">
-                                <div className="inline-flex items-center gap-2 rounded-full border border-[var(--line)] bg-white/70 px-3 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-[var(--accent)] dark:bg-white/[0.03]">
-                                    <ShieldCheck className="h-3.5 w-3.5" />
-                                    New account
-                                </div>
+                        <div className="flex h-[100vh] w-full lg:w-[58vw] items-center justify-center overflow-y-auto bg-[#FFFFFF]">
+                            <div className="w-full max-w-[460px] px-[40px] py-[48px]">
+                                <div>
+                                    <div className="mx-auto mb-[16px] flex h-[72px] w-[72px] items-center justify-center rounded-full bg-[#ECFDF5]">
+                                        <UserCircle2 className="h-[36px] w-[36px] text-[#0F9D8A]" />
+                                    </div>
 
-                                <div className="mt-6">
-                                    <h1 className="font-display text-4xl leading-tight tracking-tight text-[var(--text)] sm:text-5xl">
-                                        Create your account
+                                    <h1 className="mb-[6px] text-center text-[28px] font-[800] tracking-[2px] text-[#0F9D8A]">
+                                        REGISTER
                                     </h1>
-                                    <p className="mt-3 max-w-lg text-sm leading-7 public-muted sm:text-base">
-                                        Register once, land in a clearer dashboard, and start managing certifications
-                                        with stronger structure from the beginning.
+                                    <p className="mx-auto mb-[36px] max-w-[360px] text-center text-[13px] text-[#6B7280]">
+                                        Create your profile and keep every certification, renewal, and achievement organized.
                                     </p>
-                                </div>
 
-                                <div className="mt-8 flex items-center gap-2 rounded-full border border-[var(--line)] bg-white/60 p-1.5 dark:bg-white/[0.03]">
-                                    <Link
-                                        to="/login"
-                                        className="flex-1 rounded-full px-4 py-2.5 text-center text-sm font-semibold text-[var(--muted)] transition-colors hover:text-[var(--text)]"
-                                    >
-                                        Login
-                                    </Link>
-                                    <Link
-                                        to="/register"
-                                        className="flex-1 rounded-full bg-[var(--text)] px-4 py-2.5 text-center text-sm font-semibold text-white"
-                                    >
-                                        Register
-                                    </Link>
-                                </div>
+                                    <form onSubmit={handleSubmit(onSubmit)} className="grid w-full grid-cols-2 gap-x-[32px] gap-y-0" noValidate>
+                                        <Input
+                                            type="text"
+                                            placeholder="Enter your full name"
+                                            icon={User}
+                                            error={errors.name?.message}
+                                            {...register('name')}
+                                        />
+                                        <Input
+                                            type="email"
+                                            placeholder="Enter your email"
+                                            icon={Mail}
+                                            error={errors.email?.message}
+                                            {...register('email')}
+                                        />
+                                        <Input
+                                            type="password"
+                                            placeholder="Create a password"
+                                            icon={Lock}
+                                            error={errors.password?.message}
+                                            {...register('password')}
+                                        />
+                                        <Input
+                                            type="password"
+                                            placeholder="Confirm your password"
+                                            icon={ShieldCheck}
+                                            error={errors.confirmPassword?.message}
+                                            {...register('confirmPassword')}
+                                        />
+                                        <Input
+                                            type="text"
+                                            placeholder="Your role"
+                                            icon={Briefcase}
+                                            error={errors.designation?.message}
+                                            {...register('designation')}
+                                        />
+                                        <Input
+                                            type="text"
+                                            placeholder="Organization"
+                                            icon={Building2}
+                                            error={errors.department?.message}
+                                            {...register('department')}
+                                        />
 
-                                <form onSubmit={handleSubmit(onSubmit)} className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-2" noValidate>
-                                    <Input
-                                        label="Full Name"
-                                        type="text"
-                                        placeholder="Ashish Dohare"
-                                        icon={User}
-                                        error={errors.name?.message}
-                                        {...register('name')}
-                                    />
-                                    <Input
-                                        label="Email"
-                                        type="email"
-                                        placeholder="you@example.com"
-                                        icon={Mail}
-                                        error={errors.email?.message}
-                                        {...register('email')}
-                                    />
-                                    <Input
-                                        label="Password"
-                                        type="password"
-                                        placeholder="Create a password"
-                                        icon={Lock}
-                                        error={errors.password?.message}
-                                        {...register('password')}
-                                    />
-                                    <Input
-                                        label="Designation"
-                                        type="text"
-                                        placeholder="Software Engineer"
-                                        icon={Briefcase}
-                                        error={errors.designation?.message}
-                                        {...register('designation')}
-                                    />
+                                        <div className="col-span-2 mt-[24px] flex items-center justify-between">
+                                            <div className="text-[13px]">
+                                                <span className="text-[#6B7280]">Already have an account? </span>
+                                                <Link to="/login" className="font-semibold text-[#0F9D8A]">
+                                                    Login
+                                                </Link>
+                                            </div>
 
-                                    <div className="md:col-span-2">
-                                        <label className="mb-1.5 block text-sm font-medium text-[var(--text)]">
-                                            Department
-                                        </label>
-                                        <div className="relative">
-                                            <Building2 className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--muted)]" />
-                                            <select
-                                                {...register('department')}
-                                                className="h-12 w-full rounded-2xl border border-[var(--line-strong)] bg-white/74 pl-11 pr-4 text-sm text-[var(--text)] transition-all duration-200 focus:border-[var(--accent)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)] dark:bg-white/[0.03]"
+                                            <Button
+                                                type="submit"
+                                                size="lg"
+                                                loading={loading}
+                                                className="min-w-[190px] bg-[#0F9D8A] hover:bg-[#0B7E6F] hover:shadow-[0_8px_20px_rgba(15,157,138,0.35)] focus:ring-[#0F9D8A]"
                                             >
-                                                <option value="" disabled>Select department</option>
-                                                {DEPARTMENTS.map((department) => (
-                                                    <option key={department} value={department}>
-                                                        {department}
-                                                    </option>
-                                                ))}
-                                            </select>
+                                                {loading ? 'Creating...' : 'Create Account'}
+                                                {!loading && <ArrowRight className="h-4 w-4" />}
+                                            </Button>
                                         </div>
-                                        {errors.department?.message && (
-                                            <p className="mt-1 text-xs text-red-500">{errors.department.message}</p>
-                                        )}
-                                    </div>
-
-                                    <div className="md:col-span-2 pt-2">
-                                        <Button type="submit" size="lg" fullWidth loading={loading}>
-                                            {loading ? 'Creating account...' : 'Create account'}
-                                        </Button>
-                                    </div>
-                                </form>
-
-                                <p className="mt-6 text-sm public-muted">
-                                    Already have an account?{' '}
-                                    <Link to="/login" className="font-semibold text-[var(--accent)] transition-colors hover:text-[var(--accent-strong)]">
-                                        Sign in
-                                    </Link>
-                                </p>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </motion.div>
-            </section>
-        </PublicLayout>
+                </section>
+            </div>
+        </div>
     );
 }

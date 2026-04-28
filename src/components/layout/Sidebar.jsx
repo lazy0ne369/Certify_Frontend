@@ -32,24 +32,26 @@ function SidebarContent({ onClose }) {
     const links = user?.role === 'admin' ? ADMIN_LINKS : USER_LINKS;
 
     return (
-        <div className="flex h-full flex-col">
+        <div className="flex h-full flex-col bg-[#0F172A] text-white">
             {onClose && (
                 <div className="flex items-center justify-between px-4 pt-4 pb-2 lg:hidden">
-                    <span className="text-xs font-semibold uppercase tracking-widest dashboard-panel-text">Menu</span>
-                    <button onClick={onClose} className="rounded-lg p-1.5 hover:bg-white/60 dark:hover:bg-white/6">
-                        <X className="h-5 w-5 dashboard-panel-text" />
+                    <span className="text-xs font-semibold uppercase tracking-widest text-slate-400">Menu</span>
+                    <button onClick={onClose} className="rounded-lg p-1.5 text-slate-400 transition-colors hover:bg-white/10 hover:text-white">
+                        <X className="h-5 w-5" />
                     </button>
                 </div>
             )}
 
-            <div className="px-4 pt-4 pb-2">
-                <span className="inline-flex items-center gap-1 rounded-full bg-[#efe2d3] px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wider text-[#861c1c] dark:bg-[#2c201c] dark:text-[#f4b34f]">
+            <div className="border-b border-white/10 px-4 pt-5 pb-4">
+                <span className="mb-4 inline-flex items-center gap-1 rounded-full bg-white/10 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wider text-[#93C5FD]">
                     <ChevronRight className="h-3 w-3" />
                     {user?.role === 'admin' ? 'Admin Panel' : 'My Account'}
                 </span>
+                <p className="text-lg font-semibold text-white">Certify Workspace</p>
+                <p className="mt-1 text-sm text-slate-400">Track credentials, deadlines, and team progress.</p>
             </div>
 
-            <nav className="flex-1 space-y-1 px-3 py-2">
+            <nav className="flex-1 space-y-1 px-3 py-4">
                 {links.map(({ to, label, icon: Icon }) => (
                     <NavLink
                         key={to}
@@ -58,10 +60,10 @@ function SidebarContent({ onClose }) {
                         onClick={onClose ?? undefined}
                         className={({ isActive }) =>
                             [
-                                'relative flex items-center gap-3 overflow-hidden rounded-xl px-3 py-2.5 text-sm font-medium transition-colors duration-150',
+                                'relative flex items-center gap-3 overflow-hidden rounded-xl px-3 py-3 text-sm font-medium transition-colors duration-150',
                                 isActive
-                                    ? 'text-[#861c1c] dark:text-[#f4b34f]'
-                                    : 'dashboard-panel-text hover:bg-white/60 dark:hover:bg-white/6 hover:text-[var(--public-text)] dark:hover:text-white',
+                                    ? 'text-white'
+                                    : 'text-slate-300 hover:bg-white/8 hover:text-white',
                             ].join(' ')
                         }
                     >
@@ -70,7 +72,7 @@ function SidebarContent({ onClose }) {
                                 {isActive && (
                                     <motion.div
                                         layoutId="sidebar-active"
-                                        className="absolute inset-0 rounded-xl bg-[#f0dfd0] dark:bg-[#30221e]"
+                                        className="absolute inset-0 rounded-xl bg-[#2563EB]"
                                         transition={{ type: 'spring', stiffness: 380, damping: 35 }}
                                     />
                                 )}
@@ -82,9 +84,10 @@ function SidebarContent({ onClose }) {
                 ))}
             </nav>
 
-            <div className="border-t border-[rgba(120,85,57,0.12)] p-4 dark:border-[rgba(236,203,182,0.08)]">
-                <p className="truncate text-xs font-semibold dashboard-panel-title">{user?.name}</p>
-                <p className="truncate text-xs dashboard-panel-text">{user?.designation}</p>
+            <div className="border-t border-white/10 p-4">
+                <p className="truncate text-xs font-semibold uppercase tracking-[0.14em] text-slate-400">Signed in as</p>
+                <p className="mt-2 truncate text-sm font-semibold text-white">{user?.name}</p>
+                <p className="truncate text-xs text-slate-400">{user?.designation}</p>
             </div>
         </div>
     );
@@ -95,7 +98,7 @@ export default function Sidebar() {
 
     return (
         <>
-            <aside className="sticky top-16 hidden h-[calc(100vh-4rem)] w-64 shrink-0 flex-col border-r border-[rgba(120,85,57,0.12)] bg-[rgba(255,249,241,0.78)] backdrop-blur-md dark:border-[rgba(236,203,182,0.08)] dark:bg-[rgba(24,18,17,0.88)] lg:flex">
+            <aside className="sticky top-16 hidden h-[calc(100vh-4rem)] w-72 shrink-0 flex-col border-r border-slate-900/90 bg-[#0F172A] shadow-[24px_0_48px_rgba(15,23,42,0.08)] lg:flex">
                 <SidebarContent />
             </aside>
 
@@ -116,7 +119,7 @@ export default function Sidebar() {
                             initial="hidden"
                             animate="visible"
                             exit="exit"
-                            className="fixed top-0 left-0 z-40 h-full w-72 border-r border-[rgba(120,85,57,0.12)] bg-[rgba(255,249,241,0.96)] shadow-2xl dark:border-[rgba(236,203,182,0.08)] dark:bg-[rgba(24,18,17,0.96)] lg:hidden"
+                            className="fixed top-0 left-0 z-40 h-full w-72 border-r border-slate-900/90 bg-[#0F172A] shadow-2xl lg:hidden"
                         >
                             <SidebarContent onClose={() => setSidebarOpen(false)} />
                         </motion.aside>
