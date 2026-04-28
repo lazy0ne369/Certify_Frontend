@@ -51,12 +51,12 @@ function StatTile({ icon, label, value, tone }) {
     return (
         <MotionDiv
             variants={listItemVariants}
-            className="rounded-xl border border-slate-200 bg-white p-5 shadow-md transition-transform duration-200 hover:scale-[1.02]"
+            className="dashboard-card p-5 transition-transform duration-200 hover:scale-[1.02]"
         >
             <div className="flex items-start justify-between gap-4">
                 <div>
-                    <p className="text-sm font-medium text-slate-500">{label}</p>
-                    <p className="mt-3 text-3xl font-bold tracking-tight text-slate-900">
+                    <p className="dashboard-muted text-sm font-medium">{label}</p>
+                    <p className="dashboard-text mt-3 text-3xl font-bold tracking-tight">
                         <AnimatedNumber value={value} />
                     </p>
                 </div>
@@ -92,8 +92,8 @@ function HealthRing({ score }) {
                     />
                 </svg>
                 <div className="absolute inset-0 flex flex-col items-center justify-center">
-                    <span className="text-3xl font-bold text-slate-900">{score}%</span>
-                    <span className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">Health</span>
+                    <span className="dashboard-text text-3xl font-bold">{score}%</span>
+                    <span className="dashboard-muted text-xs font-semibold uppercase tracking-[0.2em]">Health</span>
                 </div>
             </div>
         </div>
@@ -208,15 +208,15 @@ export default function UserDashboard() {
                 <MotionSection variants={listItemVariants} className="flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
                     <div>
                         <p className="section-label">Dashboard</p>
-                        <h1 className="mt-2 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
+                        <h1 className="dashboard-text mt-2 text-3xl font-bold tracking-tight sm:text-4xl">
                             Welcome back, {user?.name} <span aria-hidden="true">👋</span>
                         </h1>
-                        <p className="mt-2 max-w-2xl text-sm font-light leading-7 text-slate-500 sm:text-base">
+                        <p className="dashboard-muted mt-2 max-w-2xl text-sm font-light leading-7 sm:text-base">
                             Your certifications, renewals, and validity outlook are all visible from one place.
                         </p>
                     </div>
 
-                    <div className="rounded-xl border border-blue-100 bg-blue-50 px-4 py-3 text-sm text-blue-700 shadow-sm">
+                    <div className="dashboard-card-soft px-4 py-3 text-sm text-[var(--accent)] shadow-sm">
                         <span className="font-semibold">{stats.active}</span> active credentials are currently keeping your profile strong.
                     </div>
                 </MotionSection>
@@ -234,15 +234,15 @@ export default function UserDashboard() {
                 </motion.div>
 
                 <div className="grid gap-4 xl:grid-cols-[1.15fr_0.85fr]">
-                    <MotionSection variants={listItemVariants} className="rounded-xl border border-slate-200 bg-white p-5 shadow-md">
+                    <MotionSection variants={listItemVariants} className="dashboard-card p-5">
                         <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
                             <div>
                                 <p className="section-label">Status Breakdown</p>
-                                <h2 className="mt-2 text-2xl font-bold tracking-tight text-slate-900">
+                                <h2 className="dashboard-text mt-2 text-2xl font-bold tracking-tight">
                                     <span>Certification </span>
                                     <span className="text-[#2563EB]">overview</span>
                                 </h2>
-                                <p className="mt-2 text-sm font-light leading-7 text-slate-500">
+                                <p className="dashboard-muted mt-2 text-sm font-light leading-7">
                                     A quick glance at how your portfolio is distributed across active, expiring, and expired credentials.
                                 </p>
                             </div>
@@ -272,13 +272,13 @@ export default function UserDashboard() {
 
                             <div className="space-y-3">
                                 {(chartData.length ? chartData : [{ name: 'No certifications yet', value: 0, color: '#DBEAFE' }]).map((item) => (
-                                    <div key={item.name} className="rounded-xl border border-slate-200 bg-slate-50 p-4">
+                                    <div key={item.name} className="dashboard-card-soft p-4">
                                         <div className="flex items-center justify-between gap-3">
                                             <div className="flex items-center gap-3">
                                                 <span className="h-3 w-3 rounded-full" style={{ backgroundColor: item.color }} />
-                                                <span className="text-sm font-semibold text-slate-700">{item.name}</span>
+                                                <span className="dashboard-text text-sm font-semibold">{item.name}</span>
                                             </div>
-                                            <span className="text-lg font-bold text-slate-900">{item.value}</span>
+                                            <span className="dashboard-text text-lg font-bold">{item.value}</span>
                                         </div>
                                     </div>
                                 ))}
@@ -286,14 +286,14 @@ export default function UserDashboard() {
                         </div>
                     </MotionSection>
 
-                    <MotionSection variants={listItemVariants} className="rounded-xl border border-slate-200 bg-white p-5 shadow-md">
+                    <MotionSection variants={listItemVariants} className="dashboard-card p-5">
                         <div className="flex items-center gap-3">
                             <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-blue-50 text-blue-600">
                                 <CalendarClock className="h-5 w-5" />
                             </div>
                             <div>
                                 <p className="section-label">Renewal Alerts</p>
-                                <h2 className="mt-1 text-2xl font-bold tracking-tight text-slate-900">
+                                <h2 className="dashboard-text mt-1 text-2xl font-bold tracking-tight">
                                     <span>Expiry </span>
                                     <span className="text-[#2563EB]">countdowns</span>
                                 </h2>
@@ -305,17 +305,17 @@ export default function UserDashboard() {
                                 renewalCandidates.slice(0, 4).map((certificate) => {
                                     const days = differenceInDays(parseISO(certificate.expiryDate), new Date());
                                     return (
-                                        <div key={certificate.id} className="rounded-xl border border-slate-200 bg-slate-50 p-4">
+                                        <div key={certificate.id} className="dashboard-card-soft p-4">
                                             <div className="flex items-start justify-between gap-3">
                                                 <div className="min-w-0">
-                                                    <p className="text-sm font-semibold text-slate-900 line-clamp-1">{certificate.title}</p>
-                                                    <p className="mt-1 text-xs font-light text-slate-500">
+                                                    <p className="dashboard-text text-sm font-semibold line-clamp-1">{certificate.title}</p>
+                                                    <p className="dashboard-muted mt-1 text-xs font-light">
                                                         {certificate.organization} • expires {format(parseISO(certificate.expiryDate), 'dd MMM yyyy')}
                                                     </p>
                                                 </div>
                                                 <CountdownBadge cert={certificate} />
                                             </div>
-                                            <div className="mt-3 flex items-center gap-2 text-xs text-slate-500">
+                                            <div className="dashboard-muted mt-3 flex items-center gap-2 text-xs">
                                                 {days < 0 ? <ShieldAlert className="h-3.5 w-3.5 text-red-500" /> : <ShieldCheck className="h-3.5 w-3.5 text-emerald-500" />}
                                                 {days < 0 ? 'Renew immediately to restore validity' : 'Reminder windows are aligned to your renewal timeline'}
                                             </div>
@@ -323,7 +323,7 @@ export default function UserDashboard() {
                                     );
                                 })
                             ) : (
-                                <div className="rounded-xl border border-dashed border-slate-200 bg-slate-50 p-6 text-sm font-light text-slate-500">
+                                <div className="dashboard-card-soft border-dashed p-6 text-sm font-light dashboard-muted">
                                     Add certifications to see upcoming renewal countdowns here.
                                 </div>
                             )}
@@ -331,21 +331,21 @@ export default function UserDashboard() {
                     </MotionSection>
                 </div>
 
-                <MotionSection variants={listItemVariants} className="rounded-xl border border-slate-200 bg-white p-5 shadow-md">
+                <MotionSection variants={listItemVariants} className="dashboard-card p-5">
                     <div className="flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
                         <div>
                             <p className="section-label">Renewal Timeline</p>
-                            <h2 className="mt-2 text-2xl font-bold tracking-tight text-slate-900">
+                            <h2 className="dashboard-text mt-2 text-2xl font-bold tracking-tight">
                                 <span>Upcoming </span>
                                 <span className="text-[#2563EB]">renewals</span>
                             </h2>
-                            <p className="mt-2 text-sm font-light leading-7 text-slate-500">
+                            <p className="dashboard-muted mt-2 text-sm font-light leading-7">
                                 A horizontal view of your next renewal windows over the coming 120 days.
                             </p>
                         </div>
-                        <div className="flex flex-wrap gap-3 text-xs font-semibold text-slate-500">
+                        <div className="dashboard-muted flex flex-wrap gap-3 text-xs font-semibold">
                             {[0, 30, 60, 90, 120].map((marker) => (
-                                <span key={marker} className="rounded-full bg-slate-100 px-3 py-1">
+                                <span key={marker} className="dashboard-card-soft px-3 py-1">
                                     Day {marker}
                                 </span>
                             ))}
@@ -354,11 +354,11 @@ export default function UserDashboard() {
 
                     <div className="mt-6 overflow-x-auto">
                         <div className="min-w-[720px] space-y-4">
-                            <div className="relative h-8 rounded-full bg-slate-100">
+                            <div className="dashboard-card-soft relative h-8 rounded-full">
                                 {[0, 25, 50, 75, 100].map((position) => (
                                     <div
                                         key={position}
-                                        className="absolute top-0 h-full border-r border-slate-200"
+                                        className="absolute top-0 h-full border-r border-[var(--line)]"
                                         style={{ left: `${position}%` }}
                                     />
                                 ))}
@@ -368,16 +368,16 @@ export default function UserDashboard() {
                                 timelineData.map((certificate) => (
                                     <div key={certificate.id} className="grid grid-cols-[240px_1fr] items-center gap-4">
                                         <div className="min-w-0">
-                                            <p className="text-sm font-semibold text-slate-900 line-clamp-1">{certificate.title}</p>
-                                            <p className="mt-1 text-xs font-light text-slate-500">
+                                            <p className="dashboard-text text-sm font-semibold line-clamp-1">{certificate.title}</p>
+                                            <p className="dashboard-muted mt-1 text-xs font-light">
                                                 {certificate.organization} • {format(parseISO(certificate.expiryDate), 'dd MMM yyyy')}
                                             </p>
                                         </div>
-                                        <div className="relative h-12 rounded-full bg-slate-100">
+                                        <div className="dashboard-card-soft relative h-12 rounded-full">
                                             {[0, 25, 50, 75, 100].map((position) => (
                                                 <div
                                                     key={position}
-                                                    className="absolute top-0 h-full border-r border-slate-200"
+                                                    className="absolute top-0 h-full border-r border-[var(--line)]"
                                                     style={{ left: `${position}%` }}
                                                 />
                                             ))}
@@ -400,7 +400,7 @@ export default function UserDashboard() {
                                     </div>
                                 ))
                             ) : (
-                                <div className="rounded-xl border border-dashed border-slate-200 bg-slate-50 p-8 text-center text-sm font-light text-slate-500">
+                                <div className="dashboard-card-soft border-dashed p-8 text-center text-sm font-light dashboard-muted">
                                     No renewal windows to display yet.
                                 </div>
                             )}

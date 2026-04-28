@@ -32,7 +32,7 @@ function SidebarContent({ onClose }) {
     const links = user?.role === 'admin' ? ADMIN_LINKS : USER_LINKS;
 
     return (
-        <div className="flex h-full flex-col bg-[#0F172A] text-white">
+        <div className="dashboard-sidebar flex h-full flex-col text-white">
             {onClose && (
                 <div className="flex items-center justify-between px-4 pt-4 pb-2 lg:hidden">
                     <span className="text-xs font-semibold uppercase tracking-widest text-slate-400">Menu</span>
@@ -60,10 +60,8 @@ function SidebarContent({ onClose }) {
                         onClick={onClose ?? undefined}
                         className={({ isActive }) =>
                             [
-                                'relative flex items-center gap-3 overflow-hidden rounded-xl px-3 py-3 text-sm font-medium transition-colors duration-150',
-                                isActive
-                                    ? 'text-white'
-                                    : 'text-slate-300 hover:bg-white/8 hover:text-white',
+                                'dashboard-sidebar-link text-sm font-medium',
+                                isActive ? 'is-active' : '',
                             ].join(' ')
                         }
                     >
@@ -72,7 +70,7 @@ function SidebarContent({ onClose }) {
                                 {isActive && (
                                     <motion.div
                                         layoutId="sidebar-active"
-                                        className="absolute inset-0 rounded-xl bg-[#2563EB]"
+                                        className="absolute inset-0 rounded-[18px] bg-[linear-gradient(135deg,#2563EB_0%,#1D4ED8_100%)]"
                                         transition={{ type: 'spring', stiffness: 380, damping: 35 }}
                                     />
                                 )}
@@ -98,7 +96,7 @@ export default function Sidebar() {
 
     return (
         <>
-            <aside className="sticky top-16 hidden h-[calc(100vh-4rem)] w-72 shrink-0 flex-col border-r border-slate-900/90 bg-[#0F172A] shadow-[24px_0_48px_rgba(15,23,42,0.08)] lg:flex">
+            <aside className="dashboard-sidebar sticky top-16 hidden h-[calc(100vh-4rem)] w-72 shrink-0 flex-col border-r border-white/8 shadow-[24px_0_48px_rgba(15,23,42,0.18)] lg:flex">
                 <SidebarContent />
             </aside>
 
@@ -119,7 +117,7 @@ export default function Sidebar() {
                             initial="hidden"
                             animate="visible"
                             exit="exit"
-                            className="fixed top-0 left-0 z-40 h-full w-72 border-r border-slate-900/90 bg-[#0F172A] shadow-2xl lg:hidden"
+                            className="dashboard-sidebar fixed top-0 left-0 z-40 h-full w-72 border-r border-white/8 shadow-2xl lg:hidden"
                         >
                             <SidebarContent onClose={() => setSidebarOpen(false)} />
                         </motion.aside>
