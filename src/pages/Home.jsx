@@ -16,17 +16,17 @@ import Button from '../components/ui/Button';
 const BENEFITS = [
     {
         title: 'Track every credential',
-        text: 'Keep certificate records, issue dates, expiry dates, and verification links in one place.',
+        text: 'Store certificate details, issue dates, expiry dates, and proof links in one organized workspace.',
         icon: Layers3,
     },
     {
         title: 'Stay ahead of renewals',
-        text: 'See upcoming expiries early so users can renew before compliance becomes a problem.',
+        text: 'Catch upcoming expiries early and give users enough time to renew without last-minute scrambling.',
         icon: TimerReset,
     },
     {
-        title: 'Support both users and admins',
-        text: 'Employees manage personal certifications while admins monitor team-wide compliance.',
+        title: 'Give admins a clear picture',
+        text: 'Users manage personal records while admins monitor compliance trends across teams and departments.',
         icon: Users,
     },
 ];
@@ -38,9 +38,9 @@ const HIGHLIGHTS = [
 ];
 
 const STEPS = [
-    'Add certifications with issuer, issue date, expiry date, and credential ID.',
-    'Monitor active, expiring, and expired records from a focused dashboard.',
-    'Use admin views to review coverage, approvals, and renewal risk by department.',
+    'Add each certification with issuer, credential ID, issue date, and expiry date.',
+    'Track what is active, expiring soon, expired, or waiting for review from one dashboard.',
+    'Use admin views to spot department risk, follow renewals, and stay audit-ready.',
 ];
 
 export default function Home() {
@@ -62,12 +62,12 @@ export default function Home() {
                         </div>
 
                         <h1 className="mt-6 max-w-3xl font-display text-5xl leading-[0.98] tracking-tight text-[var(--text)] sm:text-6xl lg:text-[5.2rem]">
-                            Manage certifications before they become compliance issues.
+                            Keep certification records accurate, visible, and renewal-ready.
                         </h1>
 
                         <p className="mt-6 max-w-2xl text-base leading-8 public-muted sm:text-lg">
-                            Certify helps teams track employee credentials, catch upcoming expiries, and give
-                            admins a clear view of organizational readiness.
+                            Certify gives users one place to maintain credentials and gives admins a clean view of
+                            renewals, expiries, and compliance status without spreadsheet chasing.
                         </p>
 
                         <div className="mt-8 flex flex-col gap-3 sm:flex-row">
@@ -107,7 +107,7 @@ export default function Home() {
                         className="relative"
                     >
                         <div className="public-surface-strong overflow-hidden rounded-[36px] p-4 shadow-[0_36px_90px_rgba(15,23,42,0.12)] sm:p-5">
-                            <div className="rounded-[30px] border border-[var(--line)] bg-[linear-gradient(180deg,rgba(255,255,255,0.96),rgba(244,247,251,0.96))] p-5">
+                            <div className="rounded-[30px] border border-[var(--line)] bg-[var(--public-card-strong)] p-5">
                                 <div className="flex items-center justify-between gap-4">
                                     <div>
                                         <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[var(--muted)]">Admin overview</p>
@@ -195,11 +195,11 @@ export default function Home() {
                     <div className="public-surface rounded-[30px] p-6 sm:p-7">
                         <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[var(--muted)]">Why teams use it</p>
                         <h2 className="mt-4 font-display text-4xl leading-tight tracking-tight text-[var(--text)]">
-                            Clear records for users. Clear visibility for admins.
+                            A single system for individual records and team oversight.
                         </h2>
                         <p className="mt-4 text-sm leading-7 public-muted sm:text-base">
-                            Certify reduces scattered spreadsheets and missed renewal dates by putting certification
-                            status, evidence, and ownership into one shared workflow.
+                            Keep ownership clear, make renewals visible, and reduce the risk of missed deadlines by
+                            centralizing certification data in one workflow.
                         </p>
                     </div>
 
@@ -207,11 +207,14 @@ export default function Home() {
                         <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[var(--muted)]">How it works</p>
                         <div className="mt-5 grid gap-3">
                             {STEPS.map((item, index) => (
-                                <div key={item} className="flex items-start gap-4 rounded-[22px] border border-[var(--line)] bg-white/70 px-4 py-4">
+                                <div
+                                    key={item}
+                                    className="public-step-card flex items-start gap-4 rounded-[22px] border border-[var(--line)] px-4 py-4"
+                                >
                                     <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[var(--accent-soft)] text-sm font-semibold text-[var(--accent)]">
                                         {index + 1}
                                     </div>
-                                    <p className="text-sm leading-7 text-[var(--text)]">{item}</p>
+                                    <p className="text-sm leading-7 text-[var(--text)] dark:text-white/88">{item}</p>
                                 </div>
                             ))}
                         </div>
@@ -219,21 +222,36 @@ export default function Home() {
                 </section>
 
                 <section className="mt-12">
-                    <div className="overflow-hidden rounded-[34px] border border-[var(--line)] bg-[linear-gradient(135deg,#0f172a_0%,#15305f_52%,#1f5eff_100%)] px-6 py-10 shadow-[0_32px_80px_rgba(15,23,42,0.18)] sm:px-8 sm:py-12">
+                    <div
+                        className="overflow-hidden rounded-[34px] border px-6 py-10 sm:px-8 sm:py-12"
+                        style={{
+                            borderColor: 'var(--public-cta-border)',
+                            background: 'var(--public-cta-bg)',
+                            boxShadow: '0 32px 80px rgba(31, 94, 255, 0.12)',
+                        }}
+                    >
                         <div className="max-w-3xl">
-                            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-white/70">Get started</p>
-                            <h2 className="mt-4 font-display text-4xl leading-tight tracking-tight text-white sm:text-5xl">
-                                Sign in to manage certifications, renewals, and compliance from one place.
+                            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[var(--accent)] dark:text-white/72">Get started</p>
+                            <h2 className="mt-4 font-display text-4xl leading-tight tracking-tight text-[var(--text)] dark:text-white sm:text-5xl">
+                                Start with a workspace built for certification tracking and renewal follow-up.
                             </h2>
+                            <p className="mt-4 max-w-2xl text-sm leading-7 text-[var(--muted)] dark:text-white/72 sm:text-base">
+                                Sign in if you already use Certify, or register to begin organizing credentials,
+                                tracking deadlines, and improving compliance visibility.
+                            </p>
                             <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-                                <Button size="lg" onClick={() => navigate('/login')} className="border-none bg-white !text-[var(--text)] hover:bg-[#eef4ff]">
+                                <Button
+                                    size="lg"
+                                    onClick={() => navigate('/login')}
+                                    className="border border-[rgba(31,94,255,0.16)] bg-white text-[#0f172a] hover:bg-[#f7faff] dark:border-none dark:bg-white dark:!text-[#0f172a] dark:hover:bg-[#eef4ff]"
+                                >
                                     Sign in
                                 </Button>
                                 <Button
                                     size="lg"
                                     variant="outline"
                                     onClick={() => navigate('/register')}
-                                    className="border-white/20 bg-white/8 text-white hover:bg-white/14"
+                                    className="border-[rgba(31,94,255,0.16)] bg-[rgba(255,255,255,0.62)] text-[var(--text)] hover:bg-[rgba(255,255,255,0.85)] dark:border-white/20 dark:bg-white/10 dark:text-white dark:hover:bg-white/16"
                                 >
                                     Register
                                 </Button>

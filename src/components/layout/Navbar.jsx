@@ -55,7 +55,7 @@ export default function Navbar() {
     return (
         <>
             <header className="dashboard-topbar px-4 py-4 sm:px-5">
-                <div className="mx-auto flex max-w-[1460px] flex-wrap items-center justify-between gap-4 xl:flex-nowrap">
+                <div className="flex w-full flex-wrap items-center justify-between gap-4 xl:flex-nowrap">
                 <div className="flex items-center gap-3">
                     <button
                         type="button"

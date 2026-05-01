@@ -47,19 +47,23 @@ function PageLoader() {
     );
 }
 
+function getDashboardPath(user) {
+    return user?.role?.toUpperCase() === 'ADMIN' ? '/admin/dashboard' : '/user/dashboard';
+}
+
 // ── Smart root redirect ───────────────────────────────────────────────────────
 function RootRedirect() {
     const { isAuthenticated, user, isHydrating } = useAuthStore();
     if (isHydrating) return <PageLoader />;
-    if (!isAuthenticated) return <Navigate to="/login" replace />;
-    return <Navigate to={user?.role?.toUpperCase() === 'ADMIN' ? '/admin/dashboard' : '/user/dashboard'} replace />;
+    if (!isAuthenticated) return <Navigate to="/" replace />;
+    return <Navigate to={getDashboardPath(user)} replace />;
 }
 
 function GuestOnly({ children }) {
-    const { isAuthenticated, isHydrating } = useAuthStore();
+    const { isAuthenticated, isHydrating, user } = useAuthStore();
 
     if (isHydrating) return <PageLoader />;
-    if (isAuthenticated) return <Navigate to="/redirect" replace />;
+    if (isAuthenticated) return <Navigate to={getDashboardPath(user)} replace />;
 
     return children;
 }

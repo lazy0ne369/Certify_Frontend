@@ -58,7 +58,7 @@ export default function PublicNavbar() {
                         </div>
                         <div>
                             <p className="text-base font-semibold tracking-tight text-[var(--text)]">Certify</p>
-                            <p className="text-xs text-[var(--muted)]">Track credentials with clarity</p>
+                            <p className="text-xs text-[var(--muted)]">Certification tracking workspace</p>
                         </div>
                     </Link>
 

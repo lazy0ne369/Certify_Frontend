@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ShieldCheck } from 'lucide-react';
+import { ArrowLeft, ShieldCheck } from 'lucide-react';
 
 const CAROUSEL_LINES = [
     'Track all your certifications in one place',
@@ -94,13 +94,14 @@ export default function AuthVisualPanel({ mode }) {
                 />
             </div>
 
-            <div className="absolute top-[24px] left-[24px] inline-flex w-fit max-w-[300px] items-center gap-[10px] rounded-full border border-[rgba(255,255,255,0.15)] bg-[rgba(255,255,255,0.08)] px-[18px] py-[10px] backdrop-blur-[12px]">
-                <ShieldCheck className="h-[20px] w-[20px] shrink-0 text-white" />
-                <div className="flex min-w-0 flex-col">
-                    <p className="truncate text-sm font-bold tracking-widest text-white">CERTIFY</p>
-                    <p className="truncate text-xs text-white/50">Professional Skill Certification Tracking</p>
-                </div>
-            </div>
+            <button
+                type="button"
+                onClick={() => navigate('/')}
+                aria-label="Back to landing page"
+                className="absolute left-[24px] top-[24px] inline-flex h-[44px] w-[44px] items-center justify-center rounded-full border border-[rgba(255,255,255,0.18)] bg-[rgba(255,255,255,0.08)] text-white backdrop-blur-[12px] transition-colors hover:bg-[rgba(255,255,255,0.14)]"
+            >
+                <ArrowLeft className="h-[18px] w-[18px]" />
+            </button>
 
             <div className="absolute right-[24px] top-[24px] z-20 rounded-full border border-white/14 bg-white/10 p-[6px] shadow-[0_14px_34px_rgba(0,0,0,0.18)] backdrop-blur-xl">
                 <div className="relative flex items-center gap-[6px]">

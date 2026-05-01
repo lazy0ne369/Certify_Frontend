@@ -58,6 +58,15 @@
   --public-text: var(--text);
   --public-border: var(--line);
   --public-surface: var(--surface);
+  --public-shell-tint: rgba(31, 94, 255, 0.08);
+  --public-shell-bg: linear-gradient(180deg, #f8fbff 0%, #f3f7ff 46%, #eef4ff 100%);
+  --public-card: rgba(255, 255, 255, 0.88);
+  --public-card-strong: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(244,247,251,0.98));
+  --public-cta-bg: linear-gradient(135deg, #f8fbff 0%, #eaf2ff 56%, #dbe8ff 100%);
+  --public-cta-border: rgba(31, 94, 255, 0.16);
+  --public-footer-bg: linear-gradient(135deg, #ffffff 0%, #eef4ff 55%, #e0ebff 100%);
+  --public-footer-shadow: 0 28px 60px rgba(31, 94, 255, 0.12);
+  --public-chip-bg: rgba(31, 94, 255, 0.06);
 }
 
 .dark {
@@ -77,6 +86,15 @@
   --public-text: var(--text);
   --public-border: var(--line);
   --public-surface: var(--surface-strong);
+  --public-shell-tint: rgba(116, 178, 255, 0.10);
+  --public-shell-bg: linear-gradient(180deg, #0b1220 0%, #101827 48%, #0f172a 100%);
+  --public-card: rgba(23, 32, 51, 0.82);
+  --public-card-strong: linear-gradient(180deg, rgba(23,32,51,0.94), rgba(16,24,39,0.98));
+  --public-cta-bg: linear-gradient(135deg, #13203a 0%, #183564 52%, #2250b8 100%);
+  --public-cta-border: rgba(255, 255, 255, 0.08);
+  --public-footer-bg: linear-gradient(135deg, #101827 0%, #152747 58%, #1d45a2 100%);
+  --public-footer-shadow: 0 28px 60px rgba(15, 23, 42, 0.24);
+  --public-chip-bg: rgba(255, 255, 255, 0.08);
 }
 
 *,
@@ -150,14 +168,8 @@ textarea {
   position: relative;
   color: var(--text);
   background:
-    radial-gradient(circle at top left, rgba(31, 94, 255, 0.08), transparent 24%),
-    linear-gradient(180deg, #f7faff 0%, #eef4ff 52%, #f8fbff 100%);
-}
-
-.dark .public-app-shell {
-  background:
-    radial-gradient(circle at top left, rgba(116, 178, 255, 0.10), transparent 24%),
-    linear-gradient(180deg, #0b1220 0%, #101827 48%, #0f172a 100%);
+    radial-gradient(circle at top left, var(--public-shell-tint), transparent 24%),
+    var(--public-shell-bg);
 }
 
 .public-grid {
@@ -176,19 +188,21 @@ textarea {
 
 .public-surface,
 .dashboard-surface {
-  background: var(--surface);
+  background: var(--public-card);
   border: 1px solid var(--line);
   box-shadow: var(--shadow-sm);
   border-radius: var(--radius-xl);
+  backdrop-filter: blur(8px);
   transition: transform 180ms ease, box-shadow 180ms ease, background-color 300ms ease, border-color 300ms ease;
 }
 
 .public-surface-strong,
 .dashboard-surface-soft {
-  background: var(--surface-strong);
+  background: var(--public-card-strong);
   border: 1px solid var(--line);
   box-shadow: var(--shadow-md);
   border-radius: var(--radius-xl);
+  backdrop-filter: blur(10px);
 }
 
 .dark .public-surface,
@@ -226,6 +240,10 @@ textarea {
 .public-gradient-soft,
 .dashboard-icon-chip {
   background: linear-gradient(135deg, rgba(31, 94, 255, 0.14), rgba(77, 167, 255, 0.22));
+}
+
+.public-step-card {
+  background: var(--public-chip-bg);
 }
 
 .public-section-line {

@@ -96,7 +96,7 @@ export default function Sidebar() {
 
     return (
         <>
-            <aside className="dashboard-sidebar sticky top-16 hidden h-[calc(100vh-4rem)] w-72 shrink-0 flex-col border-r border-white/8 shadow-[24px_0_48px_rgba(15,23,42,0.18)] lg:flex">
+            <aside className="dashboard-sidebar sticky top-16 hidden h-[calc(100vh-4rem)] w-[288px] shrink-0 flex-col border-r border-white/8 shadow-[24px_0_48px_rgba(15,23,42,0.18)] lg:flex">
                 <SidebarContent />
             </aside>
 
@@ -117,7 +117,7 @@ export default function Sidebar() {
                             initial="hidden"
                             animate="visible"
                             exit="exit"
-                            className="dashboard-sidebar fixed top-0 left-0 z-40 h-full w-72 border-r border-white/8 shadow-2xl lg:hidden"
+                            className="dashboard-sidebar fixed top-0 left-0 z-40 h-full w-[288px] border-r border-white/8 shadow-2xl lg:hidden"
                         >
                             <SidebarContent onClose={() => setSidebarOpen(false)} />
                         </motion.aside>
