@@ -43,15 +43,15 @@ function SidebarContent({ onClose }) {
             )}
 
             <div className="border-b border-white/10 px-4 pt-5 pb-4">
-                <span className="mb-4 inline-flex items-center gap-1 rounded-full bg-white/10 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wider text-[#93C5FD]">
+                <span className="mb-3 inline-flex items-center gap-1 rounded-full bg-white/10 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-[#93C5FD]">
                     <ChevronRight className="h-3 w-3" />
                     {user?.role === 'admin' ? 'Admin Panel' : 'My Account'}
                 </span>
-                <p className="text-lg font-semibold text-white">Certify Workspace</p>
-                <p className="mt-1 text-sm text-slate-400">Track credentials, deadlines, and team progress.</p>
+                <p className="text-[1.05rem] font-semibold text-white">Certify Workspace</p>
+                <p className="mt-1 text-[13px] leading-6 text-slate-400">Track credentials, deadlines, and team progress.</p>
             </div>
 
-            <nav className="flex-1 space-y-1 px-3 py-4">
+            <nav className="flex-1 space-y-1.5 px-3 py-4">
                 {links.map(({ to, label, icon: Icon }) => (
                     <NavLink
                         key={to}
@@ -82,7 +82,7 @@ function SidebarContent({ onClose }) {
                 ))}
             </nav>
 
-            <div className="border-t border-white/10 p-4">
+            <div className="border-t border-white/10 px-4 py-4">
                 <p className="truncate text-xs font-semibold uppercase tracking-[0.14em] text-slate-400">Signed in as</p>
                 <p className="mt-2 truncate text-sm font-semibold text-white">{user?.name}</p>
                 <p className="truncate text-xs text-slate-400">{user?.designation}</p>
@@ -96,7 +96,7 @@ export default function Sidebar() {
 
     return (
         <>
-            <aside className="dashboard-sidebar sticky top-16 hidden h-[calc(100vh-4rem)] w-[288px] shrink-0 flex-col border-r border-white/8 shadow-[24px_0_48px_rgba(15,23,42,0.18)] lg:flex">
+            <aside className="dashboard-sidebar sticky top-16 hidden h-[calc(100vh-4rem)] w-[264px] shrink-0 flex-col border-r border-white/8 shadow-[24px_0_48px_rgba(15,23,42,0.18)] lg:flex xl:w-[272px]">
                 <SidebarContent />
             </aside>
 
@@ -117,7 +117,7 @@ export default function Sidebar() {
                             initial="hidden"
                             animate="visible"
                             exit="exit"
-                            className="dashboard-sidebar fixed top-0 left-0 z-40 h-full w-[288px] border-r border-white/8 shadow-2xl lg:hidden"
+                            className="dashboard-sidebar fixed top-0 left-0 z-40 h-full w-[264px] border-r border-white/8 shadow-2xl lg:hidden"
                         >
                             <SidebarContent onClose={() => setSidebarOpen(false)} />
                         </motion.aside>

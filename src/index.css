@@ -365,10 +365,10 @@ textarea {
   position: relative;
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   overflow: hidden;
-  border-radius: 18px;
-  padding: 13px 14px;
+  border-radius: 16px;
+  padding: 12px 13px;
   color: rgba(226, 232, 240, 0.78);
   transition: color 180ms ease, background-color 180ms ease, transform 180ms ease;
 }
