@@ -24,7 +24,7 @@ const Input = forwardRef(function Input(
             
             <div className="relative w-full">
                 {Icon && (
-                    <Icon className="pointer-events-none absolute left-0 top-1/2 h-[16px] w-[16px] -translate-y-1/2 text-[#94A3B8] transition-colors duration-200 group-focus-within:text-[#2563EB]" />
+                    <Icon className="pointer-events-none absolute left-0 top-1/2 h-[16px] w-[16px] -translate-y-1/2 text-[var(--muted)] transition-colors duration-200 group-focus-within:text-[var(--accent)]" />
                 )}
                 
                 <input
@@ -33,10 +33,10 @@ const Input = forwardRef(function Input(
                     className={[
                         'w-full bg-transparent border-0 border-b-2 transition-colors duration-200 ease',
                         'py-[8px] pl-[28px] pr-[32px]',
-                        'text-[14px] text-[#111827]',
-                        'placeholder:text-[#94A3B8] placeholder:text-[13px]',
-                        'focus:outline-none focus:border-[#2563EB]',
-                        error ? 'border-red-400 dark:border-red-500' : 'border-[#CBD5E1]',
+                        'text-[14px] text-[var(--text)]',
+                        'placeholder:text-[var(--muted)] placeholder:text-[13px]',
+                        'focus:outline-none focus:border-[var(--accent)]',
+                        error ? 'border-red-400 dark:border-red-500' : 'border-slate-300/80 dark:border-white/18',
                         className,
                     ].join(' ')}
                     {...props}
@@ -47,14 +47,14 @@ const Input = forwardRef(function Input(
                         type="button"
                         tabIndex={-1}
                         onClick={() => setShow((v) => !v)}
-                        className="absolute right-0 top-1/2 -translate-y-1/2 cursor-pointer text-[#94A3B8]"
+                        className="absolute right-0 top-1/2 -translate-y-1/2 cursor-pointer text-[var(--muted)]"
                     >
                         {show ? <EyeOff className="h-[16px] w-[16px]" /> : <Eye className="h-[16px] w-[16px]" />}
                     </button>
                 )}
             </div>
 
-            <div className="block w-full h-[1px] bg-[#E2E8F0] mb-[4px] mt-2" />
+            <div className="mb-[4px] mt-2 block h-[1px] w-full bg-slate-200/90 dark:bg-white/10" />
 
             {error && (
                 <p className="absolute -bottom-[20px] left-0 text-xs text-red-500 dark:text-red-400">

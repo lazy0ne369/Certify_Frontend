@@ -16,6 +16,23 @@ const schema = z.object({
     password: z.string().min(6, 'Password must be at least 6 characters'),
 });
 
+const DEMO_LOGIN_OPTIONS = [
+    {
+        id: 'user',
+        label: 'User',
+        description: 'ashish@gmail.com',
+        email: 'ashish@gmail.com',
+        password: 'user123',
+    },
+    {
+        id: 'admin',
+        label: 'Admin',
+        description: 'admin@gmail.com',
+        email: 'admin@gmail.com',
+        password: 'admin123',
+    },
+];
+
 function SocialButton({ icon, label }) {
     return (
         <button
@@ -36,10 +53,17 @@ export default function Login() {
     const {
         register,
         handleSubmit,
+        setValue,
         formState: { errors },
     } = useForm({
         resolver: zodResolver(schema),
     });
+
+    const fillDemoCredentials = ({ email, password, label }) => {
+        setValue('email', email, { shouldValidate: true, shouldDirty: true });
+        setValue('password', password, { shouldValidate: true, shouldDirty: true });
+        toast.success(`${label} login details added to the form.`);
+    };
 
     const onSubmit = async ({ email, password }) => {
         setLoading(true);
@@ -76,6 +100,29 @@ export default function Login() {
                                     <p className="mx-auto mb-[36px] max-w-[360px] text-center text-[13px] text-[#6B7280]">
                                         Access your certification workspace and pick up where your progress left off.
                                     </p>
+
+                                    <div className="mb-[28px] rounded-[24px] border border-[#E5E7EB] bg-[#F8FAFC] p-[14px]">
+                                        <p className="mb-[12px] text-[12px] font-[700] uppercase tracking-[1.4px] text-[#475569]">
+                                            Quick Demo Access
+                                        </p>
+                                        <div className="grid grid-cols-1 gap-[10px] sm:grid-cols-2">
+                                            {DEMO_LOGIN_OPTIONS.map((option) => (
+                                                <button
+                                                    key={option.id}
+                                                    type="button"
+                                                    onClick={() => fillDemoCredentials(option)}
+                                                    className="rounded-[18px] border border-[#CBD5E1] bg-white px-[14px] py-[12px] text-left transition-all duration-200 hover:border-[#2563EB] hover:bg-[#EFF6FF]"
+                                                >
+                                                    <span className="block text-[14px] font-[700] text-[#0F172A]">
+                                                        {option.label}
+                                                    </span>
+                                                    <span className="mt-[2px] block text-[12px] text-[#64748B]">
+                                                        {option.description}
+                                                    </span>
+                                                </button>
+                                            ))}
+                                        </div>
+                                    </div>
 
                                     <form onSubmit={handleSubmit(onSubmit)} className="w-full" noValidate>
                                         <Input

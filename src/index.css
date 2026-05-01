@@ -5,42 +5,47 @@
 @theme {
   --font-sans: 'Manrope', ui-sans-serif, system-ui, sans-serif;
   --font-display: 'Fraunces', ui-serif, Georgia, serif;
-  --color-primary: #2563eb;
-  --color-primary-hover: #1d4ed8;
+  --color-primary: #1f5eff;
+  --color-primary-hover: #194fd8;
   --color-navy: #0f172a;
-  --color-navy-secondary: #1e293b;
+  --color-navy-secondary: #172033;
   --color-surface: #ffffff;
-  --color-surface-alt: #f3f4f6;
-  --color-text: #111827;
-  --color-text-muted: #6b7280;
+  --color-surface-alt: #f4f7fb;
+  --color-text: #0f172a;
+  --color-text-muted: #5f6b7a;
 }
 
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-  --primary: #2563eb;
-  --primary-hover: #1d4ed8;
+  --primary: #1f5eff;
+  --primary-hover: #194fd8;
   --navy: #0f172a;
-  --navy-secondary: #1e293b;
+  --navy-secondary: #172033;
   --white: #ffffff;
-  --light-gray: #f3f4f6;
-  --text-dark: #111827;
-  --text-muted: #6b7280;
-  --accent-blue: #2563eb;
+  --light-gray: #f4f7fb;
+  --text-dark: #0f172a;
+  --text-muted: #5f6b7a;
+  --accent-blue: #1f5eff;
+  --accent-blue-soft: #dbe7ff;
+  --accent-cyan: #4da7ff;
+  --success-soft: rgba(22, 163, 74, 0.14);
+  --warning-soft: rgba(217, 119, 6, 0.14);
+  --danger-soft: rgba(220, 38, 38, 0.14);
 
   --bg: var(--white);
   --bg-soft: var(--light-gray);
   --surface: var(--white);
-  --surface-strong: var(--white);
-  --surface-muted: #eff6ff;
-  --line: rgba(17, 24, 39, 0.08);
-  --line-strong: rgba(17, 24, 39, 0.14);
+  --surface-strong: #fbfdff;
+  --surface-muted: #eef4ff;
+  --line: rgba(15, 23, 42, 0.08);
+  --line-strong: rgba(15, 23, 42, 0.14);
   --text: var(--text-dark);
   --muted: var(--text-muted);
   --accent: var(--accent-blue);
   --accent-strong: var(--primary-hover);
-  --accent-soft: rgba(37, 99, 235, 0.10);
-  --accent-glow: rgba(37, 99, 235, 0.16);
+  --accent-soft: rgba(31, 94, 255, 0.10);
+  --accent-glow: rgba(31, 94, 255, 0.16);
   --danger: #dc2626;
   --warning: #d97706;
   --success: #16a34a;
@@ -58,17 +63,17 @@
 .dark {
   --bg: var(--navy);
   --bg-soft: var(--navy-secondary);
-  --surface: #0f172a;
-  --surface-strong: #1e293b;
-  --surface-muted: rgba(37, 99, 235, 0.14);
+  --surface: #101827;
+  --surface-strong: #172033;
+  --surface-muted: rgba(77, 167, 255, 0.16);
   --line: rgba(255, 255, 255, 0.10);
   --line-strong: rgba(255, 255, 255, 0.18);
   --text: #ffffff;
-  --muted: #cbd5e1;
-  --accent: #60a5fa;
-  --accent-strong: #93c5fd;
-  --accent-soft: rgba(96, 165, 250, 0.14);
-  --accent-glow: rgba(96, 165, 250, 0.20);
+  --muted: #c3cfdf;
+  --accent: #74b2ff;
+  --accent-strong: #9ac9ff;
+  --accent-soft: rgba(116, 178, 255, 0.16);
+  --accent-glow: rgba(116, 178, 255, 0.22);
   --public-text: var(--text);
   --public-border: var(--line);
   --public-surface: var(--surface-strong);
@@ -122,12 +127,12 @@ textarea {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(37, 99, 235, 0.28);
+  background: rgba(31, 94, 255, 0.28);
   border-radius: 999px;
 }
 
 .dark ::-webkit-scrollbar-thumb {
-  background: rgba(96, 165, 250, 0.28);
+  background: rgba(116, 178, 255, 0.28);
 }
 
 .font-display {
@@ -144,21 +149,29 @@ textarea {
 .public-app-shell {
   position: relative;
   color: var(--text);
-  background: var(--bg);
+  background:
+    radial-gradient(circle at top left, rgba(31, 94, 255, 0.08), transparent 24%),
+    linear-gradient(180deg, #f7faff 0%, #eef4ff 52%, #f8fbff 100%);
+}
+
+.dark .public-app-shell {
+  background:
+    radial-gradient(circle at top left, rgba(116, 178, 255, 0.10), transparent 24%),
+    linear-gradient(180deg, #0b1220 0%, #101827 48%, #0f172a 100%);
 }
 
 .public-grid {
   background-image:
-    linear-gradient(to right, rgba(37, 99, 235, 0.04) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(37, 99, 235, 0.04) 1px, transparent 1px);
+    linear-gradient(to right, rgba(31, 94, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(31, 94, 255, 0.04) 1px, transparent 1px);
   background-size: 32px 32px;
   mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.3), transparent 90%);
 }
 
 .dark .public-grid {
   background-image:
-    linear-gradient(to right, rgba(147, 197, 253, 0.06) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(147, 197, 253, 0.06) 1px, transparent 1px);
+    linear-gradient(to right, rgba(154, 201, 255, 0.08) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(154, 201, 255, 0.08) 1px, transparent 1px);
 }
 
 .public-surface,
@@ -176,6 +189,11 @@ textarea {
   border: 1px solid var(--line);
   box-shadow: var(--shadow-md);
   border-radius: var(--radius-xl);
+}
+
+.dark .public-surface,
+.dark .public-surface-strong {
+  box-shadow: 0 18px 40px rgba(2, 6, 23, 0.24);
 }
 
 .public-surface:hover,
@@ -198,16 +216,16 @@ textarea {
 .public-pill {
   background: var(--accent-soft);
   color: var(--accent);
-  border: 1px solid rgba(37, 99, 235, 0.12);
+  border: 1px solid rgba(31, 94, 255, 0.12);
 }
 
 .public-gradient {
-  background: linear-gradient(135deg, #1d4ed8 0%, #2563eb 55%, #60a5fa 100%);
+  background: linear-gradient(135deg, #194fd8 0%, #1f5eff 55%, #4da7ff 100%);
 }
 
 .public-gradient-soft,
 .dashboard-icon-chip {
-  background: linear-gradient(135deg, rgba(37, 99, 235, 0.14), rgba(147, 197, 253, 0.22));
+  background: linear-gradient(135deg, rgba(31, 94, 255, 0.14), rgba(77, 167, 255, 0.22));
 }
 
 .public-section-line {
@@ -232,7 +250,7 @@ textarea {
   position: fixed;
   inset: 0;
   pointer-events: none;
-  background: radial-gradient(circle at top right, rgba(37, 99, 235, 0.08), transparent 24%);
+  background: radial-gradient(circle at top right, rgba(31, 94, 255, 0.08), transparent 24%);
 }
 
 .dashboard-frame {
@@ -396,7 +414,7 @@ textarea {
   padding: 8px 14px;
   background: var(--accent-soft);
   color: var(--accent);
-  border: 1px solid rgba(37, 99, 235, 0.12);
+  border: 1px solid rgba(31, 94, 255, 0.12);
 }
 
 .dashboard-outline-button {
@@ -480,9 +498,9 @@ textarea {
   overflow: hidden;
   border-radius: var(--radius-xl);
   background:
-    radial-gradient(circle at 18% 22%, rgba(96, 165, 250, 0.18), transparent 22%),
-    radial-gradient(circle at 84% 18%, rgba(147, 197, 253, 0.12), transparent 28%),
-    linear-gradient(150deg, #0f172a 0%, #1e293b 52%, #2563eb 100%);
+    radial-gradient(circle at 18% 22%, rgba(116, 178, 255, 0.18), transparent 22%),
+    radial-gradient(circle at 84% 18%, rgba(154, 201, 255, 0.12), transparent 28%),
+    linear-gradient(150deg, #0f172a 0%, #172033 52%, #1f5eff 100%);
 }
 
 .auth-visual-panel::before {

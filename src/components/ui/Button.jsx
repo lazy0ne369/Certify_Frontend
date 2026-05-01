@@ -2,11 +2,11 @@ import { forwardRef } from 'react';
 import { Loader2 } from 'lucide-react';
 
 const VARIANTS = {
-    primary: 'bg-[#2563EB] text-white hover:bg-[#1D4ED8] hover:scale-[1.02] hover:shadow-[0_8px_20px_rgba(37,99,235,0.35)] active:scale-[0.98] border-none',
-    secondary: 'bg-transparent text-[#2563EB] underline underline-offset-4 hover:text-[#1D4ED8]',
-    danger: 'bg-[#DC2626] text-white shadow-md hover:bg-[#B91C1C] active:bg-[#991B1B]',
-    ghost: 'bg-transparent text-[#6B7280] hover:bg-slate-100 hover:text-[#111827]',
-    outline: 'border border-slate-200 bg-white text-[#111827] hover:bg-slate-50',
+    primary: 'bg-[var(--accent)] text-white hover:bg-[var(--accent-strong)] hover:scale-[1.02] hover:shadow-[0_8px_20px_var(--accent-glow)] active:scale-[0.98] border-none',
+    secondary: 'bg-transparent text-[var(--accent)] underline underline-offset-4 hover:text-[var(--accent-strong)]',
+    danger: 'bg-[var(--danger)] text-white shadow-md hover:brightness-95 active:brightness-90',
+    ghost: 'bg-transparent text-[var(--muted)] hover:bg-[var(--bg-soft)] hover:text-[var(--text)]',
+    outline: 'border border-[var(--line)] bg-[var(--surface)] text-[var(--text)] hover:bg-[var(--bg-soft)]',
 };
 
 const SIZES = {
@@ -33,7 +33,7 @@ const Button = forwardRef(function Button({
             disabled={isDisabled}
             className={[
                 'inline-flex items-center justify-center gap-[8px] rounded-full font-[700] transition-all duration-200 ease',
-                'focus:outline-none focus:ring-2 focus:ring-[#2563EB] focus:ring-offset-2 focus:ring-offset-transparent',
+                'focus:outline-none focus:ring-2 focus:ring-[var(--accent)] focus:ring-offset-2 focus:ring-offset-transparent',
                 'disabled:cursor-not-allowed disabled:opacity-70 disabled:hover:scale-100 disabled:hover:shadow-none',
                 VARIANTS[variant] ?? VARIANTS.primary,
                 SIZES[size] ?? SIZES.md,
